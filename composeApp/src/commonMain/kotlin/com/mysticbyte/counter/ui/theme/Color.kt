@@ -24,30 +24,53 @@ val CompanySurfaceDark = Color(0xFF0A1929)
 val CompanyBackgroundLight = Color(0xFFF0F7FF)
 val CompanyBackgroundDark = Color(0xFF060F1A)
 
-// Game Theme - Glassmorphism + Neon Yellow-Green
-val GameBackground = Color(0xFF0D0D0D)
-val GameSurface = Color(0xFF1A1A1A)
-val GameSurfaceElevated = Color(0xFF252525)
-val GameSurfaceGlass = Color(0xFF1A1A1A)
+// Obsidian Theme - Glassmorphism + Neon Yellow-Green
+val ObsidianBackground = Color(0xFF0D0D0D)
+val ObsidianSurface = Color(0xFF1A1A1A)
+val ObsidianSurfaceElevated = Color(0xFF252525)
+val ObsidianSurfaceGlass = Color(0xFF1A1A1A)
 
-val GamePrimary = Color(0xFFCCFF00)
-val GamePrimaryDark = Color(0xFFA3CC00)
-val GamePrimaryContainer = Color(0xFFCCFF00)
-val GameOnPrimary = Color(0xFF0D0D0D)
+val ObsidianPrimary = Color(0xFFCCFF00)
+val ObsidianPrimaryDark = Color(0xFFA3CC00)
+val ObsidianPrimaryContainer = Color(0xFFCCFF00)
+val ObsidianOnPrimary = Color(0xFF0D0D0D)
 
-val GameSecondary = Color(0xFFFF6B35)
-val GameSecondaryDark = Color(0xFFD4552A)
-val GameSecondaryContainer = Color(0xFFFF6B35)
-val GameOnSecondary = Color(0xFF0D0D0D)
+val ObsidianSecondary = Color(0xFFFF6B35)
+val ObsidianSecondaryDark = Color(0xFFD4552A)
+val ObsidianSecondaryContainer = Color(0xFFFF6B35)
+val ObsidianOnSecondary = Color(0xFF0D0D0D)
 
-val GameBackgroundText = Color(0xFFF0F0F0)
-val GameSurfaceText = Color(0xFFA0A0A0)
-val GameOutlineColor = Color(0xFF3A3A3A)
-val GameOutlineVariant = Color(0xFF2A2A2A)
+val ObsidianBackgroundText = Color(0xFFF0F0F0)
+val ObsidianSurfaceText = Color(0xFFA0A0A0)
+val ObsidianOutlineColor = Color(0xFF3A3A3A)
+val ObsidianOutlineVariant = Color(0xFF2A2A2A)
 
-val GameError = Color(0xFFFF4444)
-val GameErrorContainer = Color(0xFFFF6666)
-val GameOnError = Color(0xFFFFFFFF)
+val ObsidianError = Color(0xFFFF4444)
+val ObsidianErrorContainer = Color(0xFFFF6666)
+val ObsidianOnError = Color(0xFFFFFFFF)
 
-val GameSuccess = Color(0xFF44FF88)
-val GameWarning = Color(0xFFFFD700)
+val ObsidianSuccess = Color(0xFF44FF88)
+val ObsidianWarning = Color(0xFFFFD700)
+
+// Backward compat aliases
+val GameBackground get() = ObsidianBackground
+val GameSurface get() = ObsidianSurface
+val GameSurfaceElevated get() = ObsidianSurfaceElevated
+val GameSurfaceGlass get() = ObsidianSurfaceGlass
+val GamePrimary get() = ObsidianPrimary
+val GamePrimaryDark get() = ObsidianPrimaryDark
+val GamePrimaryContainer get() = ObsidianPrimaryContainer
+val GameOnPrimary get() = ObsidianOnPrimary
+val GameSecondary get() = ObsidianSecondary
+val GameSecondaryDark get() = ObsidianSecondaryDark
+val GameSecondaryContainer get() = ObsidianSecondaryContainer
+val GameOnSecondary get() = ObsidianOnSecondary
+val GameBackgroundText get() = ObsidianBackgroundText
+val GameSurfaceText get() = ObsidianSurfaceText
+val GameOutlineColor get() = ObsidianOutlineColor
+val GameOutlineVariant get() = ObsidianOutlineVariant
+val GameError get() = ObsidianError
+val GameErrorContainer get() = ObsidianErrorContainer
+val GameOnError get() = ObsidianOnError
+val GameSuccess get() = ObsidianSuccess
+val GameWarning get() = ObsidianWarning

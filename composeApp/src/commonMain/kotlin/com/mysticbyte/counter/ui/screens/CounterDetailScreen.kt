@@ -51,7 +51,8 @@ import org.koin.compose.viewmodel.koinViewModel
 fun CounterDetailScreen(
     counterId: String,
     onNavigateBack: () -> Unit,
-    onNavigateToHistory: () -> Unit
+    onNavigateToHistory: () -> Unit,
+    onNavigateToSimpleView: () -> Unit
 ) {
     val viewModel: CountersViewModel = koinViewModel()
     val counters by viewModel.counters.collectAsState()
@@ -172,6 +173,16 @@ fun CounterDetailScreen(
                 )
             ) {
                 Text("Add / Set Number", style = MaterialTheme.typography.labelLarge)
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = onNavigateToSimpleView,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = accentColor ?: MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Text("Simple View", style = MaterialTheme.typography.labelLarge)
             }
             Spacer(modifier = Modifier.height(32.dp))
             Text(

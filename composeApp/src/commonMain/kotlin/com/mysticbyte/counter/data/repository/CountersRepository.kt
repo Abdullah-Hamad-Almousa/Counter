@@ -3,6 +3,7 @@ package com.mysticbyte.counter.data.repository
 import com.mysticbyte.counter.data.local.DataStoreManager
 import com.mysticbyte.counter.data.model.ActionType
 import com.mysticbyte.counter.data.model.Counter
+import com.mysticbyte.counter.data.model.ViewMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -32,7 +33,8 @@ class CountersRepository(
         name: String,
         startValue: Int,
         step: Int,
-        colorHex: String? = null
+        colorHex: String? = null,
+        viewMode: ViewMode = ViewMode.FULL
     ): Counter {
         val counter = Counter(
             id = generateId(),
@@ -40,6 +42,7 @@ class CountersRepository(
             value = startValue,
             step = step.coerceAtLeast(1),
             colorHex = colorHex,
+            viewMode = viewMode,
             createdAtMillis = kotlin.time.Clock.System.now().toEpochMilliseconds()
         )
         _counters.update { current -> current + counter }
@@ -193,6 +196,22 @@ class CountersRepository(
 
     fun getCounter(id: String): Counter? {
         return _counters.value.find { it.id == id }
+    }
+
+    fun updateViewMode(id: String, viewMode: ViewMode) {
+        val prev = getCounter(id) ?: return
+        if (prev.viewMode == viewMode) return
+        _counters.update { current ->
+            current.map { if (it.id == id) it.copy(viewMode = viewMode) else it }
+        }
+        historyRepository.logEvent(
+            counterId = id,
+            action = ActionType.VIEW_MODE_CHANGE,
+            previousValue = prev.value,
+            newValue = prev.value,
+            metadata = viewMode.name
+        )
+        persist()
     }
 
     private fun persist() {

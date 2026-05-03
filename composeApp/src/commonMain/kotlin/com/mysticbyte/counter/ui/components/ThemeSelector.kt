@@ -1,11 +1,14 @@
 package com.mysticbyte.counter.ui.components
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -18,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.mysticbyte.counter.data.model.AppTheme
 import com.mysticbyte.counter.ui.theme.BluePrimary
 import com.mysticbyte.counter.ui.theme.CompanyBluePrimary
-import com.mysticbyte.counter.ui.theme.GamePrimary
+import com.mysticbyte.counter.ui.theme.ObsidianPrimary
 
 @Composable
 fun ThemeSelector(
@@ -30,7 +33,7 @@ fun ThemeSelector(
         AppTheme.LIGHT to "Light",
         AppTheme.DARK to "Dark",
         AppTheme.COMPANY to "Company",
-        AppTheme.GAME to "Game"
+        AppTheme.GAME to "Obsidian"
     )
 
     Column(modifier = modifier.fillMaxWidth()) {
@@ -41,8 +44,11 @@ fun ThemeSelector(
         )
         Spacer(modifier = Modifier.height(12.dp))
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
             themes.forEach { (theme, label) ->
@@ -51,7 +57,7 @@ fun ThemeSelector(
                     AppTheme.LIGHT -> if (isSelected) BluePrimary else MaterialTheme.colorScheme.surfaceVariant
                     AppTheme.DARK -> if (isSelected) BluePrimary else MaterialTheme.colorScheme.surfaceVariant
                     AppTheme.COMPANY -> if (isSelected) CompanyBluePrimary else MaterialTheme.colorScheme.surfaceVariant
-                    AppTheme.GAME -> if (isSelected) GamePrimary else MaterialTheme.colorScheme.surfaceVariant
+                    AppTheme.GAME -> if (isSelected) ObsidianPrimary else MaterialTheme.colorScheme.surfaceVariant
                 }
                 val contentColor = when {
                     isSelected && theme == AppTheme.GAME -> Color.Black

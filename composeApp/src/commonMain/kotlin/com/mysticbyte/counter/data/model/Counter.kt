@@ -9,5 +9,6 @@ data class Counter(
     val value: Int = 0,
     val step: Int = 1,
     val colorHex: String? = null,
+    val viewMode: ViewMode = ViewMode.FULL,
     val createdAtMillis: Long = 0L
 )

@@ -100,27 +100,27 @@ private val CompanyDarkColorScheme = darkColorScheme(
     onErrorContainer = RedLight
 )
 
-private val GameColorScheme = darkColorScheme(
-    primary = GamePrimary,
-    onPrimary = GameOnPrimary,
-    primaryContainer = GamePrimary.copy(alpha = 0.15f),
-    onPrimaryContainer = GamePrimary,
-    secondary = GameSecondary,
-    onSecondary = GameOnSecondary,
-    secondaryContainer = GameSecondary.copy(alpha = 0.15f),
-    onSecondaryContainer = GameSecondary,
-    background = GameBackground,
-    onBackground = GameBackgroundText,
-    surface = GameSurface,
-    onSurface = GameBackgroundText,
-    surfaceVariant = GameSurfaceElevated,
-    onSurfaceVariant = GameSurfaceText,
-    outline = GameOutlineColor,
-    outlineVariant = GameOutlineVariant,
-    error = GameError,
-    onError = GameOnError,
-    errorContainer = GameErrorContainer.copy(alpha = 0.2f),
-    onErrorContainer = GameError
+private val ObsidianColorScheme = darkColorScheme(
+    primary = ObsidianPrimary,
+    onPrimary = ObsidianOnPrimary,
+    primaryContainer = ObsidianPrimary.copy(alpha = 0.15f),
+    onPrimaryContainer = ObsidianPrimary,
+    secondary = ObsidianSecondary,
+    onSecondary = ObsidianOnSecondary,
+    secondaryContainer = ObsidianSecondary.copy(alpha = 0.15f),
+    onSecondaryContainer = ObsidianSecondary,
+    background = ObsidianBackground,
+    onBackground = ObsidianBackgroundText,
+    surface = ObsidianSurface,
+    onSurface = ObsidianBackgroundText,
+    surfaceVariant = ObsidianSurfaceElevated,
+    onSurfaceVariant = ObsidianSurfaceText,
+    outline = ObsidianOutlineColor,
+    outlineVariant = ObsidianOutlineVariant,
+    error = ObsidianError,
+    onError = ObsidianOnError,
+    errorContainer = ObsidianErrorContainer.copy(alpha = 0.2f),
+    onErrorContainer = ObsidianError
 )
 
 @Composable
@@ -133,7 +133,7 @@ fun CounterTheme(
         AppTheme.LIGHT -> LightColorScheme
         AppTheme.DARK -> DarkColorScheme
         AppTheme.COMPANY -> if (darkTheme) CompanyDarkColorScheme else CompanyLightColorScheme
-        AppTheme.GAME -> GameColorScheme
+        AppTheme.GAME -> ObsidianColorScheme
     }
 
     MaterialTheme(

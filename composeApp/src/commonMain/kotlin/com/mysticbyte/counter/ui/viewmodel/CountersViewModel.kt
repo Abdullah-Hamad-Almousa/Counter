@@ -3,6 +3,7 @@ package com.mysticbyte.counter.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mysticbyte.counter.data.model.Counter
+import com.mysticbyte.counter.data.model.ViewMode
 import com.mysticbyte.counter.data.repository.CountersRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,8 +23,8 @@ class CountersViewModel(
         }
     }
 
-    fun addCounter(name: String, startValue: Int, step: Int, colorHex: String? = null): String {
-        return repository.addCounter(name, startValue, step, colorHex).id
+    fun addCounter(name: String, startValue: Int, step: Int, colorHex: String? = null, viewMode: ViewMode = ViewMode.FULL): String {
+        return repository.addCounter(name, startValue, step, colorHex, viewMode).id
     }
 
     fun deleteCounter(id: String) {
@@ -66,6 +67,10 @@ class CountersViewModel(
         repository.getCounter(id)?.let {
             repository.updateCounter(it.copy(colorHex = colorHex))
         }
+    }
+
+    fun updateViewMode(id: String, viewMode: ViewMode) {
+        repository.updateViewMode(id, viewMode)
     }
 
     fun getCounter(id: String): Counter? = repository.getCounter(id)

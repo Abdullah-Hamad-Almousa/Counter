@@ -43,6 +43,7 @@ private fun ActionType.toIcon(): ImageVector = when (this) {
     ActionType.STEP_CHANGE -> Icons.Default.AddCircle
     ActionType.NAME_CHANGE -> Icons.Default.TextFields
     ActionType.COLOR_CHANGE -> Icons.Default.Brush
+    ActionType.VIEW_MODE_CHANGE -> Icons.AutoMirrored.Filled.ArrowForward
     ActionType.CREATED -> Icons.AutoMirrored.Filled.ArrowForward
 }
 
@@ -55,6 +56,7 @@ private fun ActionType.toDisplayName(): String = when (this) {
     ActionType.STEP_CHANGE -> "Step Changed"
     ActionType.NAME_CHANGE -> "Renamed"
     ActionType.COLOR_CHANGE -> "Color Updated"
+    ActionType.VIEW_MODE_CHANGE -> "View Switched"
     ActionType.CREATED -> "Created"
 }
 
@@ -67,6 +69,7 @@ private fun ActionType.toTint(): Color = when (this) {
     ActionType.STEP_CHANGE -> Color(0xFF00838F)
     ActionType.NAME_CHANGE -> Color(0xFF37474F)
     ActionType.COLOR_CHANGE -> Color(0xFFAD1457)
+    ActionType.VIEW_MODE_CHANGE -> Color(0xFF6A1B9A)
     ActionType.CREATED -> Color(0xFF2E7D32)
 }
 

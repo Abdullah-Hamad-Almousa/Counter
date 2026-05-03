@@ -12,5 +12,6 @@ enum class ActionType {
     STEP_CHANGE,
     NAME_CHANGE,
     COLOR_CHANGE,
+    VIEW_MODE_CHANGE,
     CREATED
 }

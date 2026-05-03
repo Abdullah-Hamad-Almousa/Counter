@@ -15,6 +15,7 @@ import com.mysticbyte.counter.ui.screens.HistoryScreen
 import com.mysticbyte.counter.ui.screens.HomeScreen
 import com.mysticbyte.counter.ui.screens.LauncherScreen
 import com.mysticbyte.counter.ui.screens.SettingsScreen
+import com.mysticbyte.counter.ui.screens.SimpleCounterScreen
 import com.mysticbyte.counter.ui.screens.pray.PrayConfigScreen
 import com.mysticbyte.counter.ui.screens.pray.PrayHomeScreen
 import com.mysticbyte.counter.ui.theme.CounterTheme
@@ -46,6 +47,9 @@ object PrayHomeRoute
 
 @Serializable
 object PrayConfigRoute
+
+@Serializable
+data class SimpleCounterRoute(val counterId: String)
 
 @Composable
 fun App() {
@@ -109,18 +113,16 @@ fun App() {
             }
             composable<DetailRoute> { backStackEntry ->
                 val route = backStackEntry.toRoute<DetailRoute>()
-                val countersViewModel: CountersViewModel = koinViewModel()
-                val counters by countersViewModel.counters.collectAsState()
-                val counter = counters.find { it.id == route.counterId }
                 CounterDetailScreen(
                     counterId = route.counterId,
                     onNavigateBack = {
                         navController.popBackStack()
                     },
                     onNavigateToHistory = {
-                        counter?.let {
-                            navController.navigate(HistoryRoute(it.id, it.name))
-                        }
+                        navController.navigate(HistoryRoute(route.counterId, ""))
+                    },
+                    onNavigateToSimpleView = {
+                        navController.navigate(SimpleCounterRoute(route.counterId))
                     }
                 )
             }
@@ -161,6 +163,19 @@ fun App() {
             composable<PrayConfigRoute> {
                 PrayConfigScreen(
                     onNavigateBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable<SimpleCounterRoute> { backStackEntry ->
+                val route = backStackEntry.toRoute<SimpleCounterRoute>()
+                SimpleCounterScreen(
+                    counterId = route.counterId,
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    },
+                    onNavigateToFullView = {
+                        // Pop back to Detail (which is under us)
                         navController.popBackStack()
                     }
                 )
