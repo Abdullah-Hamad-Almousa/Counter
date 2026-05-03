@@ -2,15 +2,16 @@ package com.mysticbyte.counter.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mysticbyte.counter.data.model.CalculationMethod
 import com.mysticbyte.counter.data.model.PrayerConfig
 import com.mysticbyte.counter.data.model.PrayerTimeDisplay
 import com.mysticbyte.counter.data.model.Timings
 import com.mysticbyte.counter.data.repository.PrayerRepository
 import com.mysticbyte.counter.util.currentEpochMillis
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.time.Instant
 import kotlinx.datetime.TimeZone
@@ -31,30 +32,29 @@ class PrayViewModel(
     private val _prayerTimes = MutableStateFlow<List<PrayerTimeDisplay>>(emptyList())
     val prayerTimes: StateFlow<List<PrayerTimeDisplay>> = _prayerTimes.asStateFlow()
 
+    private var observeJob: Job? = null
+
     init {
         viewModelScope.launch {
-            loadConfig()
+            repository.loadConfig()
+            val cfg = config.value
+            if (cfg.city.isNotBlank() && cfg.country.isNotBlank()) {
+                fetchTimes()
+            }
         }
-    }
-
-    suspend fun loadConfig() {
-        repository.loadConfig()
-        val cfg = config.value
-        if (cfg.city.isNotBlank() && cfg.country.isNotBlank()) {
-            fetchTimes()
+        observeJob = viewModelScope.launch {
+            lastResponse.collectLatest { response ->
+                response?.data?.timings?.let { timings ->
+                    val offset = config.value.offsetMinutes
+                    computePrayerDisplays(timings, offset)
+                    computeNextPrayer(timings, offset)
+                }
+            }
         }
     }
 
     fun fetchTimes() {
         repository.fetchTimes()
-        viewModelScope.launch {
-            lastResponse.collect { response ->
-                response?.data?.timings?.let { timings ->
-                    computePrayerDisplays(timings, config.value.offsetMinutes)
-                    computeNextPrayer(timings, config.value.offsetMinutes)
-                }
-            }
-        }
     }
 
     fun updateConfig(country: String, city: String, method: Int, offsetMinutes: Int) {
@@ -70,6 +70,11 @@ class PrayViewModel(
 
     fun clearError() {
         // Repository handles error state internally
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        observeJob?.cancel()
     }
 
     private fun computePrayerDisplays(timings: Timings, offset: Int) {

@@ -9,15 +9,12 @@ import com.mysticbyte.counter.data.model.AppTheme
 import com.mysticbyte.counter.data.model.Counter
 import com.mysticbyte.counter.data.model.CounterEvent
 import com.mysticbyte.counter.data.model.PrayerConfig
-import com.mysticbyte.counter.getDataStoreFilePath
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okio.Path.Companion.toPath
 
-class DataStoreManager {
-
-    private val filePath = getDataStoreFilePath()
+class DataStoreManager(filePath: String) {
 
     private val dataStore: DataStore<Preferences> = PreferenceDataStoreFactory.createWithPath(
         produceFile = { filePath.toPath() }

@@ -1,6 +1,5 @@
 package com.mysticbyte.counter
 
-import android.content.Context
 import android.os.Build
 
 class AndroidPlatform : Platform {
@@ -9,8 +8,6 @@ class AndroidPlatform : Platform {
 
 actual fun getPlatform(): Platform = AndroidPlatform()
 
-lateinit var appContext: Context
-
 actual fun getDataStoreFilePath(): String {
-    return appContext.filesDir.resolve("datastore/counter.preferences_pb").absolutePath
+    return CounterApplication.instance.filesDir.resolve("datastore/counter.preferences_pb").absolutePath
 }

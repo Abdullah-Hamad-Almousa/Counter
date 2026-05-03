@@ -6,6 +6,8 @@ import com.mysticbyte.counter.data.repository.CountersRepository
 import com.mysticbyte.counter.data.repository.HistoryRepository
 import com.mysticbyte.counter.data.repository.PrayerRepository
 import com.mysticbyte.counter.data.repository.SettingsRepository
+import com.mysticbyte.counter.getDataStoreFilePath
+import com.mysticbyte.counter.getPlatform
 import com.mysticbyte.counter.ui.viewmodel.CountersViewModel
 import com.mysticbyte.counter.ui.viewmodel.HistoryViewModel
 import com.mysticbyte.counter.ui.viewmodel.PrayViewModel
@@ -17,7 +19,9 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single { DataStoreManager() }
+    single { getPlatform().name }
+    single { getDataStoreFilePath() }
+    single { DataStoreManager(get()) }
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
 
     single { PrayerApiService() }
